@@ -11,6 +11,6 @@ setup(
     ],
     url='https://exceptbot.com',  # Replace with your repository URL
     author='Brian Risk',
-    author_email='geneffects@gmail',
+    author_email='geneffects@gmail.com',
     description='Exception Logger with AI Suggestions for Django',
 )
