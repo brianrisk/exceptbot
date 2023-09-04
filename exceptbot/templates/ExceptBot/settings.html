@@ -1,0 +1,53 @@
+{% extends "exceptbot/base.html" %}
+
+<style>
+    .settings-form .form-group {
+    margin-bottom: 1em;
+}
+
+.settings-form .form-group label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.settings-form .form-group input {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.settings-form .form-text {
+    margin-top: 0.25em;
+}
+
+.settings-form .alert {
+    margin-top: 0.5em;
+}
+
+</style>
+
+{% block content %}
+    <h2>App Settings</h2>
+    <p>
+        Set-up your app here. None of these fields are required for exception logging,
+        but functionality will be limited.
+    </p>
+
+    <form method="post" class="settings-form">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+{% endblock %}

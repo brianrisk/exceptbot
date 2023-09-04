@@ -1,0 +1,9 @@
+{% extends "exceptbot/base.html" %}
+
+{% block content %}
+    <div class="container">
+        <a class="btn btn-secondary btn-sm mb-3" href="{% url 'exceptbot-exception-detail' log.id %}">Back</a>
+        <h2>Error Message</h2>
+        <pre>{{ log.full_error_message }}</pre>
+    </div>
+{% endblock %}

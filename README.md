@@ -3,9 +3,10 @@ ExceptBot is a simple Django middleware application that captures and logs excep
 
 ## Features
 * Automatically logs exceptions, including:
-  * URL path
-  * Exception type
-  * File name and content where the exception occurred
+  * The Python Code where the exception occurred
+  * The full stack trace
+  * the line of code that caused the issue
+  * URL path, Exception type, timestamp
   * User (if authenticated) that triggered the exception
 * Gets AI Suggestions
   * Sends all relevant info to ChatGPT API:
