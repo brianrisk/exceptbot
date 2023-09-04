@@ -1,6 +1,5 @@
-<center>
-<img src="https://d.at/static/exceptbot/icon.png" width="50%">
-</center>
+
+<img src="https://d.at/static/exceptbot/icon.png" width="33%">
 
 # ExceptBot: Django Exception Logger with AI Suggestions for Fixing
 ExceptBot is a simple Django middleware application that captures and logs exceptions that occur within your Django project. With this middleware, developers can quickly view exceptions, the files and lines where they originated, and details about the user that triggered them.
