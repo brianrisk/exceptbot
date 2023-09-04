@@ -1,0 +1,50 @@
+{% extends "exceptbot/base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h2>Exception Details</h2>
+
+        <table>
+            <tr>
+                <th>Timestamp:</th>
+                <td>{{ log.timestamp }}</td>
+            </tr>
+            <tr>
+                <th>Exception Type:</th>
+                <td>{{ log.exception_type }}</td>
+            </tr>
+            <tr>
+                <th>URL Path:</th>
+                <td>{{ log.url_path }}</td>
+            </tr>
+            <tr>
+                <th>File Name:</th>
+                <td>{{ log.file_name }}</td>
+            </tr>
+            <tr>
+                <th>User:</th>
+                <td>{{ log.user.username }}</td>
+            </tr>
+            {% if log.is_resolved %}
+                <tr>
+                    <th>Resolved By:</th>
+                    <td>{{ log.resolved_by }}</td>
+                </tr>
+                <tr>
+                    <th>Resolved At:</th>
+                    <td>{{ log.resolved_at }}</td>
+                </tr>
+            {% endif %}
+        </table>
+        <br>
+        <a class="btn btn-secondary mb-2" href="{% url 'exceptbot-error-message' log.id %}">Full Error Message</a>
+        <a class="btn btn-secondary mb-2" href="{% url 'exceptbot-file-content' log.id %}">Code Throwing Exception</a>
+        {% if settings.openai_api_key|length > 0 %}
+            <a class="btn btn-primary mb-2" href="{% url 'exceptbot-ai-recommendation' log.id %}">AI Recommendation</a>
+        {% endif %}
+        {% if not log.is_resolved %}
+            <a class="btn btn-success mb-2" href="{% url 'exceptbot-mark-resolved' log.id %}">Mark as Resolved</a>
+        {% endif %}
+    </div>
+{% endblock %}
+

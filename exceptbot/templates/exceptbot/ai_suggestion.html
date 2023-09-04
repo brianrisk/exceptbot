@@ -1,0 +1,78 @@
+{% extends "exceptbot/base.html" %}
+
+{% block content %}
+    <!--
+    Initialize CodeMirror for each textarea
+    -->
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            {% for block in log.get_blocks %}
+                {% if block.is_code %}
+                    var cm{{ forloop.counter }} = CodeMirror.fromTextArea(document.getElementById('code{{ forloop.counter }}'), {
+                        lineNumbers: true,
+                        mode: '{{ block.language }}', // set this to the appropriate mode
+                        {% if user.is_authenticated and user.profile.display_mode != 1 %}
+                            theme: 'dracula',
+                        {% else %}
+                            theme: 'default',
+                        {% endif %}
+                        viewportMargin: Infinity, // this makes the editor's height adjust to fit the content
+                    });
+
+                    var numLines = cm{{ forloop.counter }}.lineCount() + 1; // Get the number of lines
+                    var lineHeight = cm{{ forloop.counter }}.defaultTextHeight();
+                    var areaHeight = lineHeight * (numLines + 1)
+                    cm{{ forloop.counter }}.setSize(null, `${areaHeight}px`);
+
+                    var button{{ forloop.counter }} = document.querySelector('.copy-button[data-target="code{{ forloop.counter }}"]');
+                    button{{ forloop.counter }}.addEventListener('click', function () {
+                        // Copy the CodeMirror instance's content to the clipboard
+                        navigator.clipboard.writeText(cm{{ forloop.counter }}.getValue()).then(function () {
+                            // Successfully copied to clipboard
+                            button{{ forloop.counter }}.textContent = 'Copied!';
+                        }, function (err) {
+                            // Failed to copy to clipboard
+                            alert('Failed to copy to clipboard: ' + err);
+                        });
+                    });
+                {% endif %}
+            {% endfor %}
+        });
+    </script>
+
+    <div class="container">
+        <a class="btn btn-secondary btn-sm mb-3" href="{% url 'exceptbot-exception-detail' log.id %}">Back</a>
+        <h2>AI Suggestion</h2>
+        <div>
+            {% for block in log.get_blocks %}
+                {% if block.is_code %}
+                    <div style="
+    background-color: #555;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    display: flex;  /* Add this line */
+    justify-content: space-between;  /* Add this line */
+    width: 100%">
+                        <div style="color: #DDD; margin-top: 10px; margin-left: 10px">
+                            {{ block.language }}
+                        </div>
+                        <div>
+                            <button class="btn btn-dark copy-button" data-target="code{{ forloop.counter }}">
+                                <i class="bi bi-clipboard"></i>
+                                Copy Code
+                            </button>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 1em">
+                        <textarea id="code{{ forloop.counter }}" class="codemirror-textarea">{{ block.text }}</textarea>
+                    </div>
+
+                {% else %}
+                    <p style="margin-bottom: 2em">{{ block.text|linebreaks }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <a class="btn btn-secondary" href="{% url 'exceptbot-exception-detail' log.id %}">Back to Exception Details</a>
+    </div>
+{% endblock %}

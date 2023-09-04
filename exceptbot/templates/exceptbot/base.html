@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExceptBot</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Codemirror -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js" integrity="sha512-8RnEqURPUc5aqFEN04aQEiPlSAdE0jlFS/9iGgUyNtwFnSKCXhmB6ZTNl7LnDtDWKabJIASzXrzD0K+LYexU9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css" integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css" integrity="sha512-gFMl3u9d0xt3WR8ZeW05MWm3yZ+ZfgsBVXLSOiFz2xeVrZ8Neg0+V1kkRIo9LikyA/T9HuS91kDfc2XWse0K0A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/sql/sql.min.js" integrity="sha512-JOURLWZEM9blfKvYn1pKWvUZJeFwrkn77cQLJOS6M/7MVIRdPacZGNm2ij5xtDV/fpuhorOswIiJF3x/woe5fw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/mode/python/python.min.js"></script>
+
+    <style>
+        /* Reset table styling for better control */
+        table {
+            border-collapse: separate;
+            border-spacing: 1em 1em; /* Vertical spacing between rows. Horizontal spacing is controlled by the cell. */
+            width: 100%; /* Full width of its container. This is optional and can be adjusted. */
+        }
+
+        /* Style table cells */
+        td {
+            background-color: white;
+            border-radius: 8px; /* Rounded corners */
+            padding: 0.5em; /* Inner spacing of cell */
+            margin-right: 1em; /* Horizontal spacing between cells */
+            margin-bottom: 1em;
+            vertical-align: top; /* Aligns content to the top of the cell */
+        }
+
+        /* You might also want to style table headers, if used */
+        th {
+            background-color: #f2f2f2; /* A light gray, adjust as needed */
+            border-radius: 8px;
+            padding: 0.5em;
+            margin-right: 1em;
+            margin-bottom: 1em;
+            vertical-align: top;
+            text-align: left; /* Text alignment inside header cells */
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'exceptbot-list' %}">
+            <img src="{% static 'exceptbot/icon.gif' %}" height="64">
+            <strong>ExceptBot</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'exceptbot-list' %}">Unresolved</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'exceptbot-resolved' %}">Resolved</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'exceptbot-settings' %}">Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Site</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-danger" href="https://www.patreon.com/ExceptBot">Support</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Bootstrap JS, Popper.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

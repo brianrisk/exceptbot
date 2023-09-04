@@ -1,0 +1,40 @@
+{% extends "exceptbot/base.html" %}
+{% load static %}
+{% block content %}
+
+    {% if logs %}
+        <h2>Exception Logs</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Exception</th>
+                <th>Path</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for log in logs %}
+                <tr>
+                    <td>{{ log.timestamp }}</td>
+                    <td><a href="{% url 'exceptbot-exception-detail' log.id %}">{{ log.exception_type }}</a></td>
+                    <td>
+                        <a href="{{ log.url_path }}">{{ log.url_path }}</a>
+
+                    </td>
+                    <td>
+                        {% if not log.is_resolved %}
+                            <a class="btn btn-primary btn-sm" href="{% url 'exceptbot-mark-resolved' log.id %}">Mark as
+                                Resolved</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div style="width: 100%; text-align: center">
+            <img src="{% static 'exceptbot/no-issues.jpg' %}" width="75%">
+        </div>
+    {% endif %}
+{% endblock %}
