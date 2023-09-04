@@ -1,24 +1,33 @@
-{% extends "base.html" %}
+{% extends "exceptbot/base.html" %}
 {% block content %}
-<h2>Exception Logs</h2>
-<table>
-    <thead>
+
+    <h2>Exception Logs</h2>
+    <table>
+        <thead>
         <tr>
             <th>Timestamp</th>
             <th>Exception</th>
             <th>Path</th>
             <th>Action</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         {% for log in logs %}
-        <tr>
-            <td>{{ log.timestamp }}</td>
-            <td><a href="{% url 'exceptbot-exception-detail' log.id %}">{{ log.exception_type }}</a></td>
-            <td>{{ log.url_path }}</td>
-            <td><a href="{% url 'exceptbot-mark-resolved' log.id %}">Mark as Resolved</a></td>
-        </tr>
+            <tr>
+                <td>{{ log.timestamp }}</td>
+                <td><a href="{% url 'exceptbot-exception-detail' log.id %}">{{ log.exception_type }}</a></td>
+                <td>
+                    <a href="{{ log.url_path }}">{{ log.url_path }}</a>
+
+                </td>
+                <td>
+                    {% if not log.is_resolved %}
+                        <a class="btn btn-primary btn-sm" href="{% url 'exceptbot-mark-resolved' log.id %}">Mark as
+                            Resolved</a>
+                    {% endif %}
+                </td>
+            </tr>
         {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
 {% endblock %}

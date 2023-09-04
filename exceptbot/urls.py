@@ -15,10 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import exception_list, mark_resolved, exception_detail
+from .views import exception_list, mark_resolved, exception_detail, exception_error_message, exception_file_content, \
+    exception_resolved, ai_recommendation, app_settings_view
 
 urlpatterns = [
     path('exceptbot/', exception_list, name='exceptbot-list'),
+    path('exceptbot/resolved', exception_resolved, name='exceptbot-resolved'),
     path('exceptbot/<int:log_id>/resolve/', mark_resolved, name='exceptbot-mark-resolved'),
+    path('exceptbot/<int:log_id>/ai/', ai_recommendation, name='exceptbot-ai-recommendation'),
     path('exceptbot/<int:log_id>/', exception_detail, name='exceptbot-exception-detail'),
+    path('exceptbot/<int:log_id>/error/', exception_error_message, name='exceptbot-error-message'),
+    path('exceptbot/<int:log_id>/file/', exception_file_content, name='exceptbot-file-content'),
+    path('exceptbot/settings/', app_settings_view, name='exceptbot-settings'),  # new line here
 ]
