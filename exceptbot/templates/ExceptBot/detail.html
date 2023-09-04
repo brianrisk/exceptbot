@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Exception Details</h2>
+    <p><strong>Timestamp:</strong> {{ log.timestamp }}</p>
+    <p><strong>Exception:</strong> {{ log.exception_type }}</p>
+    <p><strong>Path:</strong> {{ log.url_path }}</p>
+    <p><strong>File:</strong> {{ log.file_name }}</p>
+    <pre>{{ log.file_content }}</pre>
+    <p><strong>User:</strong> {{ log.user }}</p>
+    <p><strong>Resolved:</strong> {{ log.is_resolved }}</p>
+    {% if log.is_resolved %}
+        <p><strong>Resolved By:</strong> {{ log.resolved_by }}</p>
+        <p><strong>Resolved At:</strong> {{ log.resolved_at }}</p>
+    {% endif %}
+{% endblock %}
