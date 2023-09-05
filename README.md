@@ -2,15 +2,20 @@
 <img src="https://d.at/static/exceptbot/github-banner.jpg" width="100%">
 
 # ExceptBot: Django Exception Logger with AI Suggestions for Fixing
-ExceptBot is a simple Django middleware application that captures and logs exceptions that occur within your Django project. With this middleware, developers can quickly view exceptions, the files and lines where they originated, and details about the user that triggered them.
+
+**Imagine**: An exception is thrown on your site and it is *critical*.  
+You need a solution *fast*.  
+
+ExceptBot is a Django middleware application that captures 
+and logs exceptions that occur within your Django project. Site admins
+can quickly view exceptions, the code where the problem originated, and 
+with a button-click feed all that info to ChatGPT to get a possible solution.
 
 ## Features
 * Automatically logs exceptions, including:
-  * The Python Code where the exception occurred
+  * The Python Code and line where the exception occurred
   * The full stack trace
-  * the line of code that caused the issue
-  * URL path, Exception type, timestamp
-  * User (if authenticated) that triggered the exception
+  * URL path, Exception type, timestamp, user (if authenticated)
 * Gets AI Suggestions
   * Sends all relevant info to ChatGPT API:
     * Stack trace
