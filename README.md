@@ -76,7 +76,7 @@ $ python3 manage.py collectstatic --no-input
 
 ## Usage
 Once integrated into your Django project:
-
+* setup the Chat GPT connection (When you have an account, your [API key is here](https://platform.openai.com/account/api-keys))
 * Any exception that occurs will be automatically logged by the middleware.
 * Superusers can navigate to `/exceptbot/` to view a list of unresolved exceptions.
 * Click on an exception to view its detailed information.
