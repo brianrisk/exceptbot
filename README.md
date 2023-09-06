@@ -61,7 +61,7 @@ from django.urls import path, include
 
 urlpatterns = [
   # ...
-  path('exceptbot/', include('exceptbot.urls')),
+  path('', include('exceptbot.urls')),
   # ...
 ]
 ```
@@ -69,6 +69,7 @@ urlpatterns = [
 Run migrations to create the necessary database tables and set up static files
 
 ```bash
+$ python3 manage.py makemigrations exceptbot
 $ python3 manage.py migrate exceptbot
 $ python3 manage.py collectstatic --no-input
 ```
