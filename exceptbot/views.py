@@ -13,9 +13,9 @@ def superuser_check(user):
 
 @user_passes_test(superuser_check)
 def exception_list(request):
-    if not AppSettings.objects.exists():
-        return redirect('exceptbot-settings')
     settings = AppSettings.objects.all().first()
+    if not settings:
+        return redirect('exceptbot-settings')
     logs = ExceptionLog.objects.filter(is_resolved=False).order_by('-timestamp')
     return render(request, 'exceptbot/list.html', {'logs': logs, 'settings': settings})
 
