@@ -1,4 +1,4 @@
-import openai
+from openai import OpenAI
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
 
@@ -59,11 +59,10 @@ def exception_file_content(request, log_id):
 def ai_recommendation(request, log_id):
     log = get_object_or_404(ExceptionLog, id=log_id)
     settings = AppSettings.objects.all().first()
-    openai.api_key = settings.openai_api_key
+    client = OpenAI(api_key=settings.openai_api_key)
 
     if not log.ai_suggestion:
-
-        exeption_information = f"""
+        exception_information = f"""
         My Django application has thrown an exception.
         An exception happened in line {log.line_number} of file {log.file_name}.
         The exception type is: {log.exception_type}
@@ -82,19 +81,21 @@ def ai_recommendation(request, log_id):
         Please provide a suggestion for how to address the issue.
         """
 
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            # model='gpt-4',
-            messages=[
-                {"role": "system",
-                 "content": """You are ExceptBot. Users send you information about exceptions in their Django applications
+        messages = [
+            {
+                "role": "system",
+                "content": """You are ExceptBot. Users send you information about exceptions in their Django applications
                  and you respond with useful instructions and code on how to fix the issue. Please answer efficiently
                  and use an economy of words."""
-                 },
-                {"role": "user",
-                 "content": exeption_information
-                 }
-            ],
+            },
+            {
+                "role": "user",
+                "content": exception_information
+            }
+        ]
+        response = client.chat.completions.create(
+            model="gpt-4-1106-preview",
+            messages=messages
         )
 
         log.ai_suggestion = response['choices'][0]['message']['content']
@@ -116,4 +117,3 @@ def app_settings_view(request):
         form = AppSettingsForm(instance=settings)
 
     return render(request, 'exceptbot/settings.html', {'form': form})
-
