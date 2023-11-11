@@ -16,6 +16,7 @@ def exception_list(request):
     settings = AppSettings.objects.all().first()
     if not settings:
         return redirect('exceptbot-settings')
+    # raise Exception("okokok")
     logs = ExceptionLog.objects.filter(is_resolved=False).order_by('-timestamp')
     return render(request, 'exceptbot/list.html', {'logs': logs, 'settings': settings})
 
@@ -98,7 +99,7 @@ def ai_recommendation(request, log_id):
             messages=messages
         )
 
-        log.ai_suggestion = response['choices'][0]['message']['content']
+        log.ai_suggestion = response.choices[0].message.content
         log.save()
 
     return render(request, 'exceptbot/ai_suggestion.html', {'log': log})
