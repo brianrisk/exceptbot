@@ -12,12 +12,13 @@ with open(path.join(this_directory, 'LICENSE.md'), encoding='utf-8') as f:
 
 setup(
     name='exceptbot',
-    version='1.0.6',
+    version='1.0.7',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
         'django>=3.0',
         'python-decouple>=3.4',
+        'openai==1.3.7'
     ],
     url='https://exceptbot.com',
     author='Brian Risk',
