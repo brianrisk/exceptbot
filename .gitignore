@@ -6,3 +6,4 @@ exceptbot.egg-info/
 db.sqlite3
 .DS_Store
 .idea/
+venv
