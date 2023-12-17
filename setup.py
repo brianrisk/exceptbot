@@ -12,7 +12,7 @@ with open(path.join(this_directory, 'LICENSE.md'), encoding='utf-8') as f:
 
 setup(
     name='exceptbot',
-    version='1.0.7',
+    version='1.0.8',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
