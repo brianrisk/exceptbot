@@ -10,16 +10,16 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 with open(path.join(this_directory, 'LICENSE.md'), encoding='utf-8') as f:
     license_text = f.read()
 
+# Read the contents of the requirements file and create a list
+with open(path.join(this_directory, 'requirements.txt'), encoding='utf-8') as f:
+    install_requires = [line.strip() for line in f if line.strip()]
+
 setup(
     name='exceptbot',
-    version='1.0.9',
+    version='1.0.10',
     packages=find_packages(),
     include_package_data=True,
-    install_requires=[
-        'django>=3.0',
-        'python-decouple>=3.4',
-        'openai==1.3.7'
-    ],
+    install_requires=install_requires,
     url='https://exceptbot.com',
     author='Brian Risk',
     author_email='geneffects@gmail.com',
