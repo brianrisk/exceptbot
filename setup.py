@@ -16,7 +16,7 @@ with open(path.join(this_directory, 'requirements.txt'), encoding='utf-8') as f:
 
 setup(
     name='exceptbot',
-    version='1.0.10',
+    version='1.0.11',
     packages=find_packages(),
     include_package_data=True,
     install_requires=install_requires,

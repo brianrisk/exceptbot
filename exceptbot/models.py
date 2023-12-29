@@ -18,6 +18,7 @@ class ExceptionLog(models.Model):
     resolved_by = models.ForeignKey(User, related_name='resolved_exceptions', null=True, blank=True, on_delete=models.SET_NULL)
     resolved_at = models.DateTimeField(null=True, blank=True)
     ai_suggestion = models.TextField(null=True, blank=True)
+    count = models.PositiveIntegerField(default=1)  # Added count field with default of 1
 
     def __str__(self):
         return f"{self.exception_type} at {self.url_path}"
