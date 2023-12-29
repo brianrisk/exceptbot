@@ -17,7 +17,10 @@
             {% for log in logs %}
                 <tr>
                     <td>{{ log.timestamp }}</td>
-                    <td><a href="{% url 'exceptbot-exception-detail' log.id %}">{{ log.exception_type }}</a></td>
+                    <td><a href="{% url 'exceptbot-exception-detail' log.id %}">
+                        {{ log.exception_type }}
+                        ({{ log.count }})
+                    </a></td>
                     <td>
                         <a href="{{ log.url_path }}">{{ log.url_path }}</a>
 
