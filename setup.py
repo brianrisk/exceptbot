@@ -22,7 +22,7 @@ setup(
     install_requires=install_requires,
     url='https://exceptbot.com',
     author='Brian Risk',
-    author_email='geneffects@gmail.com',
+    author_email='',
     description='Exception Logger with AI Suggestions for Django',
     long_description=long_description,
     long_description_content_type='text/markdown',
